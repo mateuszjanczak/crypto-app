@@ -37,8 +37,12 @@ class Crypto extends React.Component {
 
         this.setState({
            ...this.state,
-           items: this.state.all
-               .filter(item => item.name.toLowerCase().includes(value) || item.symbol.toLowerCase().includes(value))
+           items: value ?
+               this.state.all
+                   .filter(item => item.name.toLowerCase().includes(value) || item.symbol.toLowerCase().includes(value)) :
+               this.state.all
+                   .filter((item) => item.rank <= 100)
+                   .sort((a, b) => a.rank < b.rank ? -1 : 1)
         });
     };
 
