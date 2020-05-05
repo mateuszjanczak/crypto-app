@@ -5,8 +5,8 @@ const path = require("path");
 function createWindow () {
 
     const win = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 1024,
+        height: 768,
         webPreferences: {
             nodeIntegration: true
         }
@@ -16,9 +16,9 @@ function createWindow () {
         isDev ? "http://localhost:3000" : `file://${path.join(__dirname, "../build/index.html")}`
     );
 
-    win.setMenu(null);
+    //win.setMenu(null);
 
-    win.setMinimumSize(800, 600);
+    win.setMinimumSize(1024, 768);
 
     win.webContents.openDevTools();
 

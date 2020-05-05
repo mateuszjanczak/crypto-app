@@ -1,25 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import styled from "styled-components";
+import GlobalStyle from "theme";
+import {routes} from "./routes";
+import Dashboard from "./views/Dashboard";
+
+const Wrapper = styled.div`
+  min-height: calc(100vh - 5rem);
+`;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <BrowserRouter>
+          <GlobalStyle />
+          <Wrapper>
+              <Switch>
+                  <Route path={routes.homepage} component={Dashboard} />
+              </Switch>
+          </Wrapper>
+      </BrowserRouter>
   );
 }
 
