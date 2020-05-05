@@ -12,19 +12,18 @@ class Crypto extends React.Component {
     }
 
     componentDidMount() {
-        fetch("https://api.coinpaprika.com/v1/coins")
+        fetch("https://api.coinpaprika.com/v1/tickers")
             .then(res => res.json())
             .then(
                 (result) => {
                     this.setState({
                         items: result
-                    })
+                            .filter((item) => item.rank <= 100)
+                            .sort((a, b) => a.rank < b.rank ? -1 : 1)
+                    });
                 },
                 (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
+                    console.log(error)
                 }
             )
     }
@@ -40,7 +39,7 @@ class Crypto extends React.Component {
 }
 
 const Wrapper = styled.div`
-  padding: 5rem;
+  padding: 1.5rem;
 `;
 
 

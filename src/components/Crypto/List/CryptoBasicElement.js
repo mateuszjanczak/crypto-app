@@ -6,21 +6,29 @@ const Wrapper = styled.div`
 `;
 
 const Details = styled.div`
-  padding: 2rem;
+  padding: 0.5rem;
+  text-align: center;
 `;
 
-const Heading = styled.h2`
+const Name = styled.h2`
   cursor: pointer;
-  font-size: 2rem;
+  font-size: 1.5rem;
+  text-align: center;
+`;
+
+const Price = styled.h2`
+  font-size: 1.2rem;
 `;
 
 const CryptoBasicElement = ({ item }) => {
     const { name } = item;
+    const { price } = item.quotes.USD;
 
     return (
         <Wrapper>
             <Details>
-                <Heading>{name}</Heading>
+                <Name>{name}</Name>
+                <Price>{price} USD</Price>
             </Details>
         </Wrapper>
     );
