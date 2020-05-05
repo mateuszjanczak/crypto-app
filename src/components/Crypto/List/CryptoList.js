@@ -2,10 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { default as Element } from "./CryptoBasicElement";
 import loadingSVG from '../../../assets/loading.svg'
+import * as PropTypes from "prop-types";
 
 const Wrapper = styled.div`
   display: grid;
-  height: 100%;
+  //height: 100%;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 1.5rem;
 `;
@@ -21,28 +22,30 @@ const Image = styled.img`
   justify-self: center;
 `;
 
-const CryptoList = ({ items }) => {
+class CryptoList extends React.Component {
 
-    console.log(items);
+    renderElement(item) {
+        return (
+            <Element key={item.rank} item={item}/>
+        );
+    };
 
-    const list = items.length ? (
-        items.map((item) => {
-            return (
-                <Element key={item.rank} item={item}/>
+    render() {
+        let { items } = this.props;
+
+        return (
+            items.length > 0 ? (
+                <Wrapper>
+                    {items.map(this.renderElement)}
+                </Wrapper>
+            ) : (
+                <Loading>
+                    <Image src={loadingSVG} alt={"Loading"}/>
+                </Loading>
             )
-        })
-    ) : (
-        <Loading>
-            <Image src={loadingSVG} alt={"Loading"} />
-        </Loading>
-    );
-
-    return (
-        <Wrapper>
-            {list}
-        </Wrapper>
-    );
-};
+        );
+    }
+}
 
 export default CryptoList
 

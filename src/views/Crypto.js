@@ -7,7 +7,9 @@ class Crypto extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            items: []
+            all: [],
+            items: [],
+            searchEnabled: false
         }
     }
 
@@ -17,9 +19,11 @@ class Crypto extends React.Component {
             .then(
                 (result) => {
                     this.setState({
+                        all: result,
                         items: result
                             .filter((item) => item.rank <= 100)
-                            .sort((a, b) => a.rank < b.rank ? -1 : 1)
+                            .sort((a, b) => a.rank < b.rank ? -1 : 1),
+                        searchEnabled: true
                     });
                 },
                 (error) => {
@@ -28,10 +32,20 @@ class Crypto extends React.Component {
             )
     }
 
+    doSearch = (e) => {
+        const { value } = e.target;
+
+        this.setState({
+           ...this.state,
+           items: this.state.all
+               .filter(item => item.name.toLowerCase().includes(value) || item.symbol.toLowerCase().includes(value))
+        });
+    };
 
     render() {
         return (
             <Wrapper>
+                {this.state.searchEnabled && <Search onChange={(e) => this.doSearch(e)} placeholder={"Wyszukaj kryptowaluty..."}/>}
                 <CryptoList items={this.state.items} />
             </Wrapper>
         );
@@ -40,6 +54,17 @@ class Crypto extends React.Component {
 
 const Wrapper = styled.div`
   padding: 1.5rem;
+`;
+
+const Search = styled.input`
+  width: 100%;
+  height: 5rem;
+  margin-bottom: 1.5rem;
+  background: #121212;
+  border: none;
+  border-bottom: 0.5rem solid #332940;
+  padding: 2rem;
+  color: white;
 `;
 
 
