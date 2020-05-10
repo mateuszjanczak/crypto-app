@@ -2,11 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { default as Element } from "./CryptoBasicElement";
 import loadingSVG from '../../../assets/loading.svg'
-import * as PropTypes from "prop-types";
 
 const Wrapper = styled.div`
   display: grid;
-  //height: 100%;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 1.5rem;
 `;
