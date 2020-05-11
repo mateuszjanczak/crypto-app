@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import CryptoList from "../components/Crypto/List/CryptoList";
+import List from "../components/Crypto/List/List";
 
-class Crypto extends React.Component {
+class CryptoList extends React.Component {
 
     constructor(props) {
         super(props);
@@ -39,7 +39,7 @@ class Crypto extends React.Component {
            ...this.state,
            items: value ?
                this.state.all
-                   .filter(item => item.name.toLowerCase().includes(value) || item.symbol.toLowerCase().includes(value)) :
+                   .filter(item => item.name.toLowerCase().includes(value.toLowerCase()) || item.symbol.toLowerCase().includes(value.toLowerCase())) :
                this.state.all
                    .filter((item) => item.rank <= 100)
                    .sort((a, b) => a.rank < b.rank ? -1 : 1)
@@ -50,7 +50,7 @@ class Crypto extends React.Component {
         return (
             <Wrapper>
                 {this.state.searchEnabled && <Search onChange={(e) => this.doSearch(e)} placeholder={"Wyszukaj kryptowaluty..."}/>}
-                <CryptoList items={this.state.items} />
+                <List items={this.state.items} />
             </Wrapper>
         );
     }
@@ -72,4 +72,4 @@ const Search = styled.input`
 `;
 
 
-export default Crypto;
+export default CryptoList;

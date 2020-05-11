@@ -1,5 +1,9 @@
 export const routes = {
+    init: '/init/',
+    login: '/login/',
     homepage: '/',
-    crypto: '/crypto',
-    converter: '/converter'
+    crypto: '/crypto/',
+    cryptoList: '/crypto/',
+    cryptoSingle: '/crypto/:id',
+    converter: '/converter/',
 };

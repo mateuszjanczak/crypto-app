@@ -44,7 +44,7 @@ const Sidebar = () => {
             <Heading>Aplikacja do śledzenia kryptowalut</Heading>
             <List>
                 <Element>
-                    <Link as={NavLink} to={routes.crypto}>Przegląd kryptowalut</Link>
+                    <Link as={NavLink} to={routes.cryptoList}>Przegląd kryptowalut</Link>
                 </Element>
                 <Element>
                     <Link as={NavLink} to={routes.converter}>Przelicznik walutowy</Link>

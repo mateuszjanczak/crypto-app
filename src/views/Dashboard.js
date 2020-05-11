@@ -3,12 +3,12 @@ import styled from "styled-components";
 import { Switch, Route } from "react-router-dom";
 import {routes} from "routes";
 import Sidebar from "../components/Sidebar";
-import Crypto from "./Crypto";
+import CryptoList from "./CryptoList";
+import CryptoSingle from "./CryptoSingle";
 
 const Container = styled.div`
   display: grid;
   grid-template-columns: 25rem 1fr;
-  background: #121212;
   min-height: 100vh;
 `;
 
@@ -17,7 +17,8 @@ const Dashboard = () => {
         <Container>
             <Sidebar />
             <Switch>
-                <Route path={routes.crypto} component={Crypto} />
+                <Route exact path={routes.cryptoSingle} component={CryptoSingle} />
+                <Route exact path={routes.crypto} component={CryptoList} />
             </Switch>
         </Container>
     )

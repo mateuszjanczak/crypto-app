@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { default as Element } from "./CryptoBasicElement";
+import { default as Element } from "./BasicElement";
 import loadingSVG from '../../../assets/loading.svg'
 
 const Wrapper = styled.div`
@@ -20,7 +20,7 @@ const Image = styled.img`
   justify-self: center;
 `;
 
-class CryptoList extends React.Component {
+class List extends React.Component {
 
     renderElement(item) {
         return (
@@ -45,5 +45,5 @@ class CryptoList extends React.Component {
     }
 }
 
-export default CryptoList
+export default List
 
