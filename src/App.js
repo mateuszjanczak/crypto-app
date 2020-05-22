@@ -6,6 +6,7 @@ import GlobalStyle from "theme";
 import {routes} from "./routes";
 import Dashboard from "./views/Dashboard";
 import Init from "./views/Init";
+import Login from "./views/Login";
 
 const Wrapper = styled.div`
   min-height: calc(100vh - 5rem);
@@ -15,10 +16,12 @@ class App extends React.Component {
 
     state = {
         toDashboard: false,
+        currentUser: null
     };
 
     toDashboard = () => {
         this.setState({
+            ...this.state,
             toDashboard: true
         })
     };
@@ -38,8 +41,9 @@ class App extends React.Component {
                 <GlobalStyle/>
                 <Wrapper>
                     <Switch>
-                        <Route path={routes.init} component={Init}/>
-                        <Route path={routes.homepage} component={Dashboard}/>
+                        <Route path={routes.init} component={Init} />
+                        <Route path={routes.login} component={Login} />
+                        <Route path={routes.homepage} component={Dashboard} />
                     </Switch>
                 </Wrapper>
             </BrowserRouter>

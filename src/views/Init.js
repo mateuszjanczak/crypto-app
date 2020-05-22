@@ -66,6 +66,9 @@ const Button = styled.button`
   color: white;
   font-size: 1.5rem;
   padding: 1.5rem;
+  &:hover {
+    background: #332940;
+  }
 `;
 
 export default Init;
