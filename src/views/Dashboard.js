@@ -5,6 +5,8 @@ import {routes} from "routes";
 import Sidebar from "../components/Sidebar";
 import CryptoList from "./CryptoList";
 import CryptoSingle from "./CryptoSingle";
+import AuthenticatedRoute from "../components/AuthenticatedRoute";
+import Converter from "./Converter";
 
 const Container = styled.div`
   display: grid;
@@ -19,6 +21,7 @@ const Dashboard = () => {
             <Switch>
                 <Route exact path={routes.cryptoSingle} component={CryptoSingle} />
                 <Route exact path={routes.crypto} component={CryptoList} />
+                <AuthenticatedRoute exact path={routes.converter} component={Converter} />
             </Switch>
         </Container>
     )

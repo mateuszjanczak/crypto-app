@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import {routes} from "../../../routes";
 import AuthenticationService from "../../../service/AuthenticationService";
-import { Route , withRouter} from 'react-router-dom';
+import { withRouter} from 'react-router-dom';
 
 class LoginForm extends React.Component {
 

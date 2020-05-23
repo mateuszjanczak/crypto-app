@@ -18,13 +18,13 @@ class AuthenticationService {
         sessionStorage.setItem('jwtToken', token);
     }
 
-    createJWTToken(token) {
-        return 'Bearer ' +  token
-    }
 
     getHeaders() {
-        const token = sessionStorage.getItem('jwtToken');
-        return this.createJWTToken(token);
+        return sessionStorage.getItem('jwtToken')
+    }
+
+    isLogged() {
+        return sessionStorage.getItem('authenticatedUser') && sessionStorage.getItem('jwtToken');
     }
 
     logout() {

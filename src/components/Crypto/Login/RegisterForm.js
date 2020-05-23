@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import AuthenticationService from "../../../service/AuthenticationService";
-import { Route , withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import {routes} from "../../../routes";
 
 class RegisterForm extends React.Component {

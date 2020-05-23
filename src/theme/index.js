@@ -22,6 +22,15 @@ const GlobalStyle = createGlobalStyle`
         outline: 0;
     }
     
+    input::-webkit-calendar-picker-indicator {
+      display: none;
+    }
+    
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
 `;
 
 export default GlobalStyle;
