@@ -6,17 +6,20 @@ import {routes} from "../routes";
 class Init extends React.Component {
 
     state = {
-        referrer: null
+        referrer: null,
+        online: true
     };
 
     user = () => {
         this.setState({
+            ...this.state,
             referrer: routes.login
         });
     };
 
     guest = () => {
         this.setState({
+            ...this.state,
             referrer: routes.homepage
         });
     };
@@ -26,10 +29,11 @@ class Init extends React.Component {
             <Wrapper>
                 <Box>
                     <h1>Aplikacja do śledzenia kryptowalut</h1>
-                    <Switches>
+                    {!this.state.online && <p>Serwer nie jest uruchomiony</p>}
+                    {this.state.online && <Switches>
                         <Button onClick={this.user}>Użytkownik</Button>
                         <Button onClick={this.guest}>Gość</Button>
-                    </Switches>
+                    </Switches>}
                 </Box>
                 {this.state.referrer && <Redirect to={this.state.referrer} />}
             </Wrapper>
@@ -72,5 +76,3 @@ const Button = styled.button`
 `;
 
 export default Init;
-
-//        <Redirect to={routes.homepage} />

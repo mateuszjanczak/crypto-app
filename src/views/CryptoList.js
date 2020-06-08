@@ -39,7 +39,8 @@ class CryptoList extends React.Component {
            ...this.state,
            items: value ?
                this.state.all
-                   .filter(item => item.name.toLowerCase().includes(value.toLowerCase()) || item.symbol.toLowerCase().includes(value.toLowerCase())) :
+                   .filter(item => item.name.toLowerCase().includes(value.toLowerCase()))
+                   .slice(0, 55) :
                this.state.all
                    .filter((item) => item.rank <= 100)
                    .sort((a, b) => a.rank < b.rank ? -1 : 1)
