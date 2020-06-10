@@ -120,7 +120,7 @@ class Converter extends React.Component {
                     </datalist>
 
                     <Column>
-                        <h1>Waluta wejściowa</h1>
+                        <Heading>Waluta wejściowa</Heading>
                         <Input type="text" list="crypto" placeholder="Wybierz kryptowalutę" onChange={this.handleChange} name="from" value={this.state.from}/>
                         <Input type="number" placeholder="Ilość" onChange={this.handleChange} name="fromAmount" value={this.state.fromAmount} />
                     </Column>
@@ -128,7 +128,7 @@ class Converter extends React.Component {
                         <Image src={swapSVG} alt={"Loading"} onClick={this.swap}/>
                     </Swap>
                     <Column>
-                        <h1>Waluta wyjściowa</h1>
+                        <Heading>Waluta wyjściowa</Heading>
                         <Input type="text" list="crypto" placeholder="Wybierz kryptowalutę" onChange={this.handleChange} name="to" value={this.state.to}/>
                         <Input disabled type="number" placeholder="Wynik" onChange={this.handleChange} name="toAmount" value={this.state.toAmount}/>
                     </Column>
@@ -143,6 +143,11 @@ const Wrapper = styled.div`
   display: grid;
   justify-items: center;
   align-items: center;
+`;
+
+const Heading = styled.h1`
+  margin: 0;
+  margin-bottom: 2rem;
 `;
 
 const Box = styled.div`

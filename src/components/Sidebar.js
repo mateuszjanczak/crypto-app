@@ -4,37 +4,44 @@ import {NavLink} from "react-router-dom";
 import {routes} from "../routes";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCog, faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
+import AuthenticationService from "../service/AuthenticationService";
 
-const Sidebar = () => {
+class Sidebar extends React.Component {
 
-    return (
-        <Wrapper>
-            <Heading>Aplikacja do śledzenia kryptowalut</Heading>
-            <List>
-                <Element>
-                    <Link as={NavLink} to={routes.cryptoList}>Przegląd kryptowalut</Link>
-                </Element>
-                <Element>
-                    <Link as={NavLink} to={routes.converter}>Przelicznik walutowy</Link>
-                </Element>
-                <Element>
-                    <Link as={NavLink} to={routes.wallet}>Portfel</Link>
-                </Element>
-            </List>
-            <List>
-                <Settings>
-                    <Set as={NavLink} to={routes.settings}>
-                        <FontAwesomeIcon icon={faCog} />
-                    </Set>
-                    <Set as={NavLink} to={routes.settings}>
-                        <FontAwesomeIcon icon={faSignOutAlt} />
-                    </Set>
-                </Settings>
-            </List>
-        </Wrapper>
-    )
+    logout = () => {
+        AuthenticationService.logout();
+    };
 
-};
+    render() {
+        return (
+            <Wrapper>
+                <Heading>Aplikacja do śledzenia kryptowalut</Heading>
+                <List>
+                    <Element>
+                        <Link as={NavLink} to={routes.cryptoList}>Przegląd kryptowalut</Link>
+                    </Element>
+                    <Element>
+                        <Link as={NavLink} to={routes.converter}>Przelicznik walutowy</Link>
+                    </Element>
+                    <Element>
+                        <Link as={NavLink} to={routes.wallet}>Portfel</Link>
+                    </Element>
+                </List>
+                <List>
+                    <Settings>
+                        <Set as={NavLink} to={routes.settings}>
+                            <FontAwesomeIcon icon={faCog}/>
+                        </Set>
+                        <Set onClick={this.logout} as={NavLink} to={routes.init}>
+                            <FontAwesomeIcon icon={faSignOutAlt}/>
+                        </Set>
+                    </Settings>
+                </List>
+            </Wrapper>
+        )
+
+    }
+}
 
 const Wrapper = styled.div`
   height: 100vh;

@@ -3,7 +3,8 @@ import styled from "styled-components";
 import Modal from "../components/Crypto/Wallet/Modal";
 import AuthenticationService from "../service/AuthenticationService";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEdit} from "@fortawesome/free-solid-svg-icons";
+import {faBell, faEdit} from "@fortawesome/free-solid-svg-icons";
+import NotificationsForm from "../components/Crypto/Wallet/NotificationsForm";
 
 class Wallet extends React.Component {
 
@@ -11,6 +12,7 @@ class Wallet extends React.Component {
         super(props, context);
         this.state = {
             isOpenModal: false,
+            isOpenNotificationsForm: false,
             items: [],
             type: 'add',
             _id: ''
@@ -49,6 +51,13 @@ class Wallet extends React.Component {
         });
     };
 
+    toggleNotificationsForm = () => {
+        this.setState({
+            ...this.state,
+            isOpenNotificationsForm: !this.state.isOpenNotificationsForm
+        });
+    };
+
     toggleAdd = () => {
         this.setState({
             ...this.state,
@@ -66,6 +75,16 @@ class Wallet extends React.Component {
             _id
         }, () => {
             this.toggleModal();
+        });
+    };
+
+    toggleBell = (_id) => {
+        this.setState({
+            ...this.state,
+            item: this.state.items.filter((item) => item._id === _id),
+            _id
+        }, () => {
+            this.toggleNotificationsForm();
         });
     };
 
@@ -129,6 +148,9 @@ class Wallet extends React.Component {
                     <EditButton onClick={() => this.toggleEdit(_id)}>
                         <FontAwesomeIcon icon={faEdit}/>
                     </EditButton>
+                    <EditButton onClick={() => this.toggleBell(_id)}>
+                        <FontAwesomeIcon icon={faBell}/>
+                    </EditButton>
                 </Operation>
             </Box>
         );
@@ -148,6 +170,7 @@ class Wallet extends React.Component {
         return (
             <Wrapper>
                 {this.state.isOpenModal && <Form />}
+                {this.state.isOpenNotificationsForm && <NotificationsForm toggleNotificationsFormFn={this.toggleNotificationsForm} _id={this.state._id} item={this.state.item} />}
                 <Button onClick={this.toggleAdd}>
                     +
                 </Button>
@@ -183,6 +206,8 @@ const Operation = styled.div`
   display: grid;
   justify-items: center;
   align-items: center;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 0.5rem;
 `;
 
 const Button = styled.button`
@@ -218,10 +243,9 @@ const Paragraph = styled.p`
 
 const Box = styled.div`
   display: grid;
-  grid-template-columns: repeat(6, 1fr) 5rem;
+  grid-template-columns: repeat(6, 1fr) 6rem;
   padding: 1rem;
   margin-bottom: 0.75rem;
-  border-radius: 0.5%;
   background: #1F1B24;
 `;
 

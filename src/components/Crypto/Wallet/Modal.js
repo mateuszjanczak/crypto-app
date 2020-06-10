@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import AuthenticationService from "../../../service/AuthenticationService";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faTimes} from "@fortawesome/free-solid-svg-icons";
 
 class Modal extends React.Component {
 
@@ -13,7 +15,7 @@ class Modal extends React.Component {
         amount: '',
         date: '',
         price: '',
-        currency: ''
+        currency: 'USD'
     };
 
     componentDidMount() {
@@ -129,7 +131,7 @@ class Modal extends React.Component {
                 <Container>
                     <ActionClose onClick={toggleModalFn}>
                         <Button>
-                            X
+                            <FontAwesomeIcon icon={faTimes}/>
                         </Button>
                     </ActionClose>
                     <Form>
