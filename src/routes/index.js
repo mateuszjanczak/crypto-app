@@ -6,4 +6,5 @@ export const routes = {
     cryptoList: '/crypto/',
     cryptoSingle: '/crypto/:id',
     converter: '/converter/',
+    wallet: '/wallet/'
 };

@@ -49,6 +49,9 @@ const Sidebar = () => {
                 <Element>
                     <Link as={NavLink} to={routes.converter}>Przelicznik walutowy</Link>
                 </Element>
+                <Element>
+                    <Link as={NavLink} to={routes.wallet}>Portfel</Link>
+                </Element>
             </List>
         </Wrapper>
     )

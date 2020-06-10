@@ -162,8 +162,7 @@ const Column = styled.div`
 
 const Swap = styled.div`
   display: grid;
-  justify-items: center;
-  align-items: center;
+  grid-template-rows: repeat(4, 1fr);
 `;
 
 const Input = styled.input`
@@ -179,8 +178,10 @@ const Input = styled.input`
 `;
 
 const Image = styled.img`
+  grid-row: 2 / 5;
   align-self: center;
   justify-self: center;
+  cursor: pointer;
 `;
 
 export default Converter;

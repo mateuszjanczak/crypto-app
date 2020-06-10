@@ -22,14 +22,18 @@ const GlobalStyle = createGlobalStyle`
         outline: 0;
     }
     
+    ::-webkit-scrollbar {
+        display: none;
+    }
+    
     input::-webkit-calendar-picker-indicator {
-      display: none;
+        display: none;
     }
     
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
+        -webkit-appearance: none;
+        margin: 0;
     }
 `;
 

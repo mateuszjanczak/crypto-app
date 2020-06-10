@@ -2,8 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 class Market extends React.Component {
-
-
     render() {
         let {item} = this.props;
         const {exchange_name} = item;
