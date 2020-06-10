@@ -111,15 +111,15 @@ class Modal extends React.Component {
 
         const ActionAdd = () => {
             return (
-                <Button onClick={this.handleClickAdd}>Add</Button>
+                <Button onClick={this.handleClickAdd}>Dodaj</Button>
             )
         };
 
         const ActionEdit = () => {
             return (
                 <Actions>
-                    <Button onClick={this.handleClickEdit}>Edit</Button>
-                    <Button onClick={this.handleClickDelete}>Delete</Button>
+                    <Button onClick={this.handleClickEdit}>Edytuj</Button>
+                    <Button onClick={this.handleClickDelete}>Usuń</Button>
                 </Actions>
             )
         };

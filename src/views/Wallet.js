@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import Modal from "../components/Crypto/Wallet/Modal";
 import AuthenticationService from "../service/AuthenticationService";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faEdit} from "@fortawesome/free-solid-svg-icons";
 
 class Wallet extends React.Component {
 
@@ -124,7 +126,9 @@ class Wallet extends React.Component {
                 {this.renderPercent(percent)}
                 <Paragraph>{profit.toFixed(2) + ' ' + currency}</Paragraph>
                 <Operation>
-                    <EditButton onClick={() => this.toggleEdit(_id)}>E</EditButton>
+                    <EditButton onClick={() => this.toggleEdit(_id)}>
+                        <FontAwesomeIcon icon={faEdit}/>
+                    </EditButton>
                 </Operation>
             </Box>
         );
@@ -144,7 +148,9 @@ class Wallet extends React.Component {
         return (
             <Wrapper>
                 {this.state.isOpenModal && <Form />}
-                <Button onClick={this.toggleAdd}>+</Button>
+                <Button onClick={this.toggleAdd}>
+                    +
+                </Button>
                 <Container>
                     <Box>
                         <Heading>Kryptowaluta</Heading>
@@ -196,8 +202,8 @@ const Button = styled.button`
 `;
 
 const EditButton = styled(Button)`
-  width: 3rem;
-  height: 3rem;
+  width: 2.75rem;
+  height: 2.75rem;
   justify-self: center;
 `;
 

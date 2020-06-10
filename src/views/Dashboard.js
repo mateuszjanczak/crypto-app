@@ -8,6 +8,7 @@ import CryptoSingle from "./CryptoSingle";
 import AuthenticatedRoute from "../components/AuthenticatedRoute";
 import Converter from "./Converter";
 import Wallet from "./Wallet";
+import Settings from "./Settings";
 
 const Container = styled.div`
   display: grid;
@@ -24,6 +25,7 @@ const Dashboard = () => {
                 <Route exact path={routes.crypto} component={CryptoList} />
                 <Route exact path={routes.converter} component={Converter} />
                 <AuthenticatedRoute exact path={routes.wallet} component={Wallet} />
+                <AuthenticatedRoute exact path={routes.settings} component={Settings} />
             </Switch>
         </Container>
     )
