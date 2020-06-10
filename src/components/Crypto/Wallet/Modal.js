@@ -13,7 +13,7 @@ class Modal extends React.Component {
         amount: '',
         date: '',
         price: '',
-        currency: 'USD'
+        currency: ''
     };
 
     componentDidMount() {
@@ -111,15 +111,15 @@ class Modal extends React.Component {
 
         const ActionAdd = () => {
             return (
-                <Action onClick={this.handleClickAdd}>Add</Action>
+                <Button onClick={this.handleClickAdd}>Add</Button>
             )
         };
 
         const ActionEdit = () => {
             return (
                 <Actions>
-                    <Action onClick={this.handleClickEdit}>Edit</Action>
-                    <Action onClick={this.handleClickDelete}>Delete</Action>
+                    <Button onClick={this.handleClickEdit}>Edit</Button>
+                    <Button onClick={this.handleClickDelete}>Delete</Button>
                 </Actions>
             )
         };
@@ -137,20 +137,16 @@ class Modal extends React.Component {
                             {this.state.loaded && this.state.listCrypto.map(this.renderElement)}
                         </datalist>
                         <div>
-                            <p>Kryptowaluta</p>
-                            <Input type="text" list="crypto" onChange={this.handleChange} name="name" value={this.state.name}/>
+                            <Input type="text" list="crypto" onChange={this.handleChange} name="name" value={this.state.name} placeholder="Wybierz kryptowalutę"/>
                         </div>
                         <div>
-                            <p>Ilość</p>
-                            <Input type="number" onChange={this.handleChange} name="amount" value={this.state.amount} />
+                            <Input type="number" onChange={this.handleChange} name="amount" value={this.state.amount} placeholder="Ilość"/>
                         </div>
                         <div>
-                            <p>Data kupna</p>
-                            <Input type="date" onChange={this.handleChange} name="date" value={this.state.date} />
+                            <Input type="text" onFocus={(e) => e.target.type = 'date'} onChange={this.handleChange} name="date" value={this.state.date} placeholder="Data kupna" />
                         </div>
                         <div>
-                            <p>Cena</p>
-                            <Price type="number" onChange={this.handleChange} name="price" value={this.state.price} />
+                            <Price type="number" onChange={this.handleChange} name="price" value={this.state.price} placeholder="Cena"/>
                             <Select onChange={this.handleChange} name="currency" value={this.state.currency}>
                                 {this.state.listNormal.length > 1 && this.state.listNormal.map(this.renderOption)}
                             </Select>
@@ -188,14 +184,14 @@ const Form = styled.div`
   padding: 2.5rem 5rem;
   text-align: center;
   display: grid;
-  grid-gap: 1rem;
+  grid-gap: 3rem;
 `;
 
 const ActionClose = styled.div`
   display: grid;
   justify-content: right;
   grid-template-columns: repeat(auto-fit, 4rem);
-  margin-bottom: -4rem;
+  margin-bottom: -2rem;
 `;
 
 const Input = styled.input`
@@ -225,10 +221,6 @@ const Button = styled.button`
 const Price = styled(Input)`
   width: 22rem;
   margin-right: 1rem;
-`;
-
-const Action = styled(Button)`
-  margin-top: 2rem;
 `;
 
 const Actions = styled.div`
