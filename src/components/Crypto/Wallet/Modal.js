@@ -1,14 +1,50 @@
 import React from "react";
 import styled from "styled-components";
+import AuthenticationService from "../../../service/AuthenticationService";
 
 class Modal extends React.Component {
 
     state = {
+        listCrypto: [],
+        listNormal: ['USD', 'EUR', 'PLN', 'GBP'],
+        loaded: false,
+        name: '',
         coinId: '',
         amount: '',
         date: '',
-        price: ''
+        price: '',
+        currency: 'USD'
     };
+
+    componentDidMount() {
+        const { typeFn } = this.props;
+        if(typeFn === 'edit'){
+            const { item } = this.props;
+            this.setState({
+                ...item[0],
+                date: item[0].date.substring(0, 10)
+            });
+        }
+
+        fetch("http://localhost:3001/api/converter/list", {
+            headers: {
+                'auth-token': AuthenticationService.getHeaders()
+            }
+        })
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    this.setState({
+                        ...this.state,
+                        listCrypto: result,
+                        loaded: true
+                    });
+                },
+                (error) => {
+                    console.log(error)
+                }
+            )
+    }
 
     afterHandle = () => {
         const { toggleModalFn } = this.props;
@@ -17,14 +53,35 @@ class Modal extends React.Component {
 
     handleClickAdd = () => {
         const { addItemFn } = this.props;
-        addItemFn(this.state);
+        const { name, amount, date, price, currency } = this.state;
+        const coinId = this.state.listCrypto.find((item) => item.name === name).id;
+        addItemFn({
+            coinId,
+            amount,
+            date,
+            price,
+            currency
+        });
         this.afterHandle();
     };
 
     handleClickEdit = () => {
-        //const { editNoteFn } = this.props;
-        //const { id } = this.props.match.params;
-        //editNoteFn(id, this.state);
+        const { editItemFn } = this.props;
+        const { name, amount, date, price, currency } = this.state;
+        const coinId = this.state.listCrypto.find((item) => item.name === name).id;
+        editItemFn({
+            coinId,
+            amount,
+            date,
+            price,
+            currency
+        });
+        this.afterHandle();
+    };
+
+    handleClickDelete = () => {
+        const { deleteItemFn } = this.props;
+        deleteItemFn();
         this.afterHandle();
     };
 
@@ -34,6 +91,18 @@ class Modal extends React.Component {
                 [event.target.name]
                     :event.target.value
             }
+        );
+    };
+
+    renderElement(item) {
+        return (
+            <option key={item.id}>{item.name}</option>
+        );
+    };
+
+    renderOption = (item) => {
+        return (
+            <option key={item} value={item}>{item}</option>
         );
     };
 
@@ -48,10 +117,12 @@ class Modal extends React.Component {
 
         const ActionEdit = () => {
             return (
-                <Action onClick={this.handleClickEdit}>Edit</Action>
+                <Actions>
+                    <Action onClick={this.handleClickEdit}>Edit</Action>
+                    <Action onClick={this.handleClickDelete}>Delete</Action>
+                </Actions>
             )
         };
-
 
         return (
             <Wrapper>
@@ -62,9 +133,12 @@ class Modal extends React.Component {
                         </Button>
                     </ActionClose>
                     <Form>
+                        <datalist id="crypto">
+                            {this.state.loaded && this.state.listCrypto.map(this.renderElement)}
+                        </datalist>
                         <div>
                             <p>Kryptowaluta</p>
-                            <Input onChange={this.handleChange} name="coinId" value={this.state.coinId} />
+                            <Input type="text" list="crypto" onChange={this.handleChange} name="name" value={this.state.name}/>
                         </div>
                         <div>
                             <p>Ilość</p>
@@ -76,7 +150,10 @@ class Modal extends React.Component {
                         </div>
                         <div>
                             <p>Cena</p>
-                            <Input type="number" onChange={this.handleChange} name="price" value={this.state.price} />
+                            <Price type="number" onChange={this.handleChange} name="price" value={this.state.price} />
+                            <Select onChange={this.handleChange} name="currency" value={this.state.currency}>
+                                {this.state.listNormal.length > 1 && this.state.listNormal.map(this.renderOption)}
+                            </Select>
                         </div>
                         {this.props.typeFn === "add" && <ActionAdd/>}
                         {this.props.typeFn === "edit" && <ActionEdit/>}
@@ -145,8 +222,27 @@ const Button = styled.button`
   }
 `;
 
+const Price = styled(Input)`
+  width: 22rem;
+  margin-right: 1rem;
+`;
+
 const Action = styled(Button)`
   margin-top: 2rem;
+`;
+
+const Actions = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 1rem;
+`;
+
+const Select = styled.select`
+  padding: 1.15rem;
+  background: #121212;
+  border: none;
+  color: white;
+  border-bottom: 0.5rem solid #332940;
 `;
 
 export default Modal;

@@ -106,10 +106,7 @@ class Converter extends React.Component {
                     console.log(e)
                 })
         }
-
     };
-
-
 
     render() {
 

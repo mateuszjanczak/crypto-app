@@ -10,7 +10,8 @@ class Wallet extends React.Component {
         this.state = {
             isOpenModal: false,
             items: [],
-            type: 'add'
+            type: 'add',
+            _id: ''
         };
     }
 
@@ -55,10 +56,12 @@ class Wallet extends React.Component {
         });
     };
 
-    toggleEdit = () => {
+    toggleEdit = (_id) => {
         this.setState({
             ...this.state,
-            type: 'edit'
+            type: 'edit',
+            item: this.state.items.filter((item) => item._id === _id),
+            _id
         }, () => {
             this.toggleModal();
         });
@@ -72,9 +75,33 @@ class Wallet extends React.Component {
                 'auth-token': AuthenticationService.getHeaders()
             },
             body: JSON.stringify({
-                ...item,
-                currency: 'USD'
+                ...item
             }),
+        }).then(() => { this.fetchItems() })
+    };
+
+    editItem = (item) => {
+        const { _id } = this.state;
+        fetch(`http://localhost:3001/api/purchases/${_id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'auth-token': AuthenticationService.getHeaders()
+            },
+            body: JSON.stringify({
+                ...item
+            }),
+        }).then(() => { this.fetchItems() })
+    };
+
+    deleteItem = () => {
+        const { _id } = this.state;
+        fetch(`http://localhost:3001/api/purchases/${_id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'auth-token': AuthenticationService.getHeaders()
+            }
         }).then(() => { this.fetchItems() })
     };
 
@@ -87,7 +114,7 @@ class Wallet extends React.Component {
     };
 
     renderElement = (item) => {
-        const {amount, price, date, currency, name, percent, profit} = item;
+        const {_id, amount, price, date, currency, name, percent, profit} = item;
         return (
             <Box>
                 <Paragraph>{name}</Paragraph>
@@ -96,8 +123,10 @@ class Wallet extends React.Component {
                 <Paragraph>{date.slice(0, 10).split('-').reverse().join(' / ')}</Paragraph>
                 {this.renderPercent(percent)}
                 <Paragraph>{profit.toFixed(2) + ' ' + currency}</Paragraph>
+                <Operation>
+                    <EditButton onClick={() => this.toggleEdit(_id)}>E</EditButton>
+                </Operation>
             </Box>
-
         );
     };
 
@@ -107,7 +136,7 @@ class Wallet extends React.Component {
             return (
                 <>
                 {this.state.type === 'add' && <Modal toggleModalFn={this.toggleModal} typeFn={'add'} addItemFn={this.addItem}/>}
-                {this.state.type === 'edit' && <Modal toggleModalFn={this.toggleModal} typeFn={'edit'} />}
+                {this.state.type === 'edit' && <Modal toggleModalFn={this.toggleModal} _id={this.state._id} item={this.state.item} typeFn={'edit'} editItemFn={this.editItem} deleteItemFn={this.deleteItem} />}
                 </>
             )
         };
@@ -126,6 +155,7 @@ class Wallet extends React.Component {
                         <Heading>Profit</Heading>
                     </Box>
                     {this.state.items.length > 0 && <> {this.state.items.map(this.renderElement)} </>}
+                    {this.state.items.length === 0 && <Warning>Lista jest pusta.</Warning>}
                 </Container>
             </Wrapper>
         )
@@ -140,9 +170,13 @@ const Wrapper = styled.div`
 `;
 
 const Container = styled.div`
-  background: #1F1B24;
-  padding: 1.5rem;
 
+`;
+
+const Operation = styled.div`
+  display: grid;
+  justify-items: center;
+  align-items: center;
 `;
 
 const Button = styled.button`
@@ -161,6 +195,12 @@ const Button = styled.button`
   }
 `;
 
+const EditButton = styled(Button)`
+  width: 3rem;
+  height: 3rem;
+  justify-self: center;
+`;
+
 const Heading = styled.p`
   text-align: center;
   font-weight: 700;
@@ -172,17 +212,20 @@ const Paragraph = styled.p`
 
 const Box = styled.div`
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(6, 1fr) 5rem;
   padding: 1rem;
-  border-top: 1px solid black;
-  &:first-child {
-    border-top: none;
-  }
+  margin-bottom: 0.75rem;
+  border-radius: 0.5%;
+  background: #1F1B24;
 `;
 
 const Percent = styled.p`
   color: ${props => (props.color ? props.color : 'white')};
   font-weight: 500;
+  text-align: center;
+`;
+
+const Warning = styled.p`
   text-align: center;
 `;
 
