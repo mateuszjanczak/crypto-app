@@ -21,7 +21,7 @@ class Converter extends React.Component {
     };
 
     componentDidMount() {
-        fetch("http://localhost:3001/api/converter/list", {
+        fetch("http://localhost:3001/api/list?all", {
             headers: {
                 'auth-token': AuthenticationService.getHeaders()
             }
@@ -70,6 +70,7 @@ class Converter extends React.Component {
 
     convert = () => {
         const { from, to, fromAmount } = this.state;
+        console.log(from + to + fromAmount);
         const fromObj = this.state.items.find((item) => item.name === from);
         const toObj = this.state.items.find((item) => item.name === to);
         if(fromObj && toObj && fromAmount !== ''){

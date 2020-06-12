@@ -28,7 +28,7 @@ class Modal extends React.Component {
             });
         }
 
-        fetch("http://localhost:3001/api/converter/list", {
+        fetch("http://localhost:3001/api/list", {
             headers: {
                 'auth-token': AuthenticationService.getHeaders()
             }
