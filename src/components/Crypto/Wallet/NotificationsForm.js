@@ -10,16 +10,16 @@ class NotificationsForm extends React.Component {
         type: 'percent',
         valuePrice: '',
         valuePercent: '',
-        _id: '',
+        id: '',
         currentPrice: '',
         percent: ''
     };
 
     componentDidMount() {
-        const { item, _id } = this.props;
+        const { item, id } = this.props;
         this.setState({
             ...this.state,
-            _id,
+            id,
             currentPrice: item[0].currentPrice,
             percent: item[0].percent
         });
@@ -35,14 +35,16 @@ class NotificationsForm extends React.Component {
         let status, value;
 
         if(type === 'money') {
-            status = valuePrice > currentPrice ? 1 : 0;
+            //status = valuePrice > currentPrice ? 1 : 0;
+            status = valuePrice > currentPrice ? 0 : 1; // for testing
             value = valuePrice;
         } else {
-            status = valuePercent > percent ? 1 : 0;
+            //status = valuePercent > percent ? 1 : 0;
+            status = valuePercent > percent ? 0 : 1; // for testing
             value = valuePercent;
         }
 
-        fetch('http://localhost:3001/api/X', {
+        fetch('http://localhost:3001/api/notifications/add', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

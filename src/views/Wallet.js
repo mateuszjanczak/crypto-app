@@ -170,7 +170,7 @@ class Wallet extends React.Component {
         return (
             <Wrapper>
                 {this.state.isOpenModal && <Form />}
-                {this.state.isOpenNotificationsForm && <NotificationsForm toggleNotificationsFormFn={this.toggleNotificationsForm} _id={this.state._id} item={this.state.item} />}
+                {this.state.isOpenNotificationsForm && <NotificationsForm toggleNotificationsFormFn={this.toggleNotificationsForm} id={this.state._id} item={this.state.item} />}
                 <Button onClick={this.toggleAdd}>
                     +
                 </Button>
