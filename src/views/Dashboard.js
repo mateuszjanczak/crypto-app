@@ -10,6 +10,7 @@ import Converter from "./Converter";
 import Wallet from "./Wallet";
 import Settings from "./Settings";
 import AuthenticationService from "../service/AuthenticationService";
+import icon from "../assets/icon.ico";
 
 
 class Dashboard extends React.Component {
@@ -19,7 +20,7 @@ class Dashboard extends React.Component {
     };
 
     componentDidMount() {
-        if(AuthenticationService.isLogged()){
+       // if(AuthenticationService.isLogged()){
             const SSE = new EventSource(`http://localhost:3001/api/notifications/SSE?token=${AuthenticationService.getHeaders()}`);
             this.setState({
                 SSE
@@ -28,16 +29,18 @@ class Dashboard extends React.Component {
             SSE.onmessage = function(event) {
                 const data = JSON.parse(event.data)[0];
                 console.log("New message", data);
-                new Notification('Aplikacja do śledzenia kryptowalut', { body: `${data.coinId} przekroczył ustaloną cenę ${data.value} ${data.currency}` });
+                new Notification('Aplikacja do śledzenia kryptowalut', { body: `${data.name} przekroczył ustaloną cenę ${data.value} ${data.currency}. Aktualna cena wynosi ${data.currentPrice}`, icon  });
             };
-        }
+        //}
     }
 
 
     componentWillUnmount() {
         const { SSE } = this.state;
-        SSE.close();
-        console.log("CLOSED")
+        if(SSE.readyState === 1){
+            SSE.close();
+            console.log("CLOSED")
+        }
     }
 
     render() {

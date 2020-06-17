@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import AuthenticationService from "../service/AuthenticationService";
 
 class Settings extends React.Component {
 
@@ -13,12 +14,46 @@ class Settings extends React.Component {
         emailErr: ''
     };
 
-    handlePassword = () => {
-
+    handleMail = () => {
+        const { pass: password, mail: newEmail } = this.state;
+        console.log(this.state);
+        fetch('http://localhost:3001/api/user/settings', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'auth-token': AuthenticationService.getHeaders()
+            },
+            body: JSON.stringify({
+                password,
+                newEmail
+            }),
+        });
     };
 
-    handleMail = () => {
+    handlePassword = () => {
+        const { old: password, new: newPassword, repeat_new } = this.state;
+        if(newPassword === repeat_new){
+            fetch('http://localhost:3001/api/user/settings', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'auth-token': AuthenticationService.getHeaders()
+                },
+                body: JSON.stringify({
+                    password,
+                    newPassword
+                }),
+            });
+        }
+    };
 
+    handleChange = (event) => {
+        this.setState(
+            {
+                [event.target.name]
+                    :event.target.value
+            }
+        )
     };
 
     render() {
@@ -26,15 +61,15 @@ class Settings extends React.Component {
             <Wrapper>
                 <Box>
                     {this.state.passErr && <p>{this.state.passErr}</p>}
-                    <Input placeholder="Stare hasło" name="old" value={this.state.old} onChange={this.handleChange} />
+                    <Input type="password" placeholder="Stare hasło" name="old" value={this.state.old} onChange={this.handleChange} />
                     <Input type="password" placeholder="Nowe hasło" name="new" value={this.state.new} onChange={this.handleChange} />
                     <Input type="password" placeholder="Powtórz hasło" name="repeat_new" value={this.state.repeat_new} onChange={this.handleChange} />
                     <Button onClick={this.handlePassword}>Zmień hasło</Button>
                 </Box>
                 <Box>
                     {this.state.emailErr && <p>{this.state.emailErr}</p>}
-                    <Input placeholder="Hasło" name="pass" value={this.state.pass} onChange={this.handleChange} />
-                    <Input type="password" placeholder="Nowy adres email" name="mail" value={this.state.mail} onChange={this.handleChange} />
+                    <Input type="password" placeholder="Hasło" name="pass" value={this.state.pass} onChange={this.handleChange} />
+                    <Input placeholder="Nowy adres email" name="mail" value={this.state.mail} onChange={this.handleChange} />
                     <Button onClick={this.handleMail}>Zmień email</Button>
                 </Box>
             </Wrapper>
