@@ -1,6 +1,12 @@
 {
   "name": "crypto-app",
   "version": "0.1.0",
+  "description": "Aplikacja do śledzenia kryptowalut",
+  "author": {
+    "name": "Mateusz Janczak",
+    "email": "mateuszjanczak.mj@gmail.com",
+    "url": "https://github.com/mateuszjanczak"
+  },
   "main": "public/electron.js",
   "homepage": "./",
   "dependencies": {
@@ -49,5 +55,12 @@
     "electron": "^8.2.5",
     "electron-builder": "^22.6.0",
     "wait-on": "^4.0.2"
+  },
+  "build": {
+    "appId": "com.mateuszjanczak.crypto-app",
+    "productName": "Aplikacja do śledzenia kryptowalut",
+    "win": {
+      "icon": "build/icon.ico"
+    }
   }
 }
