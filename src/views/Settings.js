@@ -27,7 +27,16 @@ class Settings extends React.Component {
                 password,
                 newEmail
             }),
-        });
+        })
+        .then(res => {
+            return res.text().then(text => {throw new Error(text)})
+        })
+        .catch((e) => {
+            this.setState({
+                ...this.state,
+                emailErr: e.message
+            });
+        })
     };
 
     handlePassword = () => {
@@ -43,7 +52,16 @@ class Settings extends React.Component {
                     password,
                     newPassword
                 }),
-            });
+            })
+            .then(res => {
+                return res.text().then(text => {throw new Error(text)})
+            })
+            .catch((e) => {
+                this.setState({
+                    ...this.state,
+                    passErr: e.message
+                });
+            })
         }
     };
 
@@ -51,7 +69,9 @@ class Settings extends React.Component {
         this.setState(
             {
                 [event.target.name]
-                    :event.target.value
+                    :event.target.value,
+                passErr: '',
+                emailErr: ''
             }
         )
     };

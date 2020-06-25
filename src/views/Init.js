@@ -7,7 +7,32 @@ class Init extends React.Component {
 
     state = {
         referrer: null,
-        online: true
+        online: false
+    };
+
+    componentDidMount() {
+        this.checkConnection();
+        this.interval = setInterval(() => { this.checkConnection(); });
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
+
+    checkConnection() {
+        fetch('http://localhost:3001/api/list')
+        .then(() => {
+            this.setState({
+                ...this.state,
+                online: true
+            });
+        })
+        .catch(() => {
+            this.setState({
+                ...this.state,
+                online: false
+            });
+        })
     };
 
     user = () => {
