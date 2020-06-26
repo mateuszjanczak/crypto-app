@@ -35,12 +35,12 @@ class NotificationsForm extends React.Component {
         let status, value;
 
         if(type === 'money') {
-            //status = valuePrice > currentPrice ? 1 : 0;
-            status = valuePrice > currentPrice ? 0 : 1; // for testing
+            status = valuePrice > currentPrice ? 1 : 0;
+            //status = valuePrice > currentPrice ? 0 : 1; // for testing
             value = valuePrice;
         } else {
-            //status = valuePercent > percent ? 1 : 0;
-            status = valuePercent > percent ? 0 : 1; // for testing
+            status = valuePercent > percent ? 1 : 0;
+            //status = valuePercent > percent ? 0 : 1; // for testing
             value = valuePercent;
         }
 
