@@ -17,11 +17,13 @@ function createWindow () {
         isDev ? "http://localhost:3000" : `file://${path.join(__dirname, "../build/index.html")}`
     );
 
-    //win.setMenu(null);
-
     win.setMinimumSize(1024, 768);
 
-    win.webContents.openDevTools();
+    if(isDev){
+        win.webContents.openDevTools();
+    } else {
+        win.setMenu(null);
+    }
 
 }
 
