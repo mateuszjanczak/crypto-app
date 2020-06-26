@@ -74,7 +74,7 @@ class Converter extends React.Component {
         const fromObj = this.state.items.find((item) => item.name === from);
         const toObj = this.state.items.find((item) => item.name === to);
         if(fromObj && toObj && fromAmount !== ''){
-            fetch('http://localhost:3001/api/converter/convert', {
+            fetch('http://localhost:3001/api/converter', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -20,18 +20,16 @@ class Dashboard extends React.Component {
     };
 
     componentDidMount() {
-       // if(AuthenticationService.isLogged()){
-            const SSE = new EventSource(`http://localhost:3001/api/notifications/SSE?token=${AuthenticationService.getHeaders()}`);
-            this.setState({
-                SSE
-            });
-            Notification.requestPermission();
-            SSE.onmessage = function(event) {
-                const data = JSON.parse(event.data)[0];
-                console.log("New message", data);
-                new Notification('Aplikacja do śledzenia kryptowalut', { body: `${data.name} przekroczył ustaloną cenę ${data.value} ${data.currency}. Aktualna cena wynosi ${data.currentPrice}`, icon  });
-            };
-        //}
+        const SSE = new EventSource(`http://localhost:3001/api/notifications/SSE?token=${AuthenticationService.getHeaders()}`);
+        this.setState({
+            SSE
+        });
+        Notification.requestPermission();
+        SSE.onmessage = function(event) {
+            const data = JSON.parse(event.data)[0];
+            console.log("New message", data);
+            new Notification('Aplikacja do śledzenia kryptowalut', { body: `${data.name} przekroczył ustaloną cenę ${data.value} ${data.currency}. Aktualna cena wynosi ${data.currentPrice}`, icon  });
+        };
     }
 
 

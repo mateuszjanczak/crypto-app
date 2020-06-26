@@ -87,7 +87,7 @@ class RegisterForm extends React.Component {
         return (
             <Wrapper>
                 {this.state.hasRegisterFailed && <div>{this.state.error}</div>}
-                <Input placeholder="Adres email" name="email" value={this.state.email} onChange={this.handleChange} />
+                <Input type="email" placeholder="Adres email" name="email" value={this.state.email} onChange={this.handleChange} />
                 <Input placeholder="Nazwa użytkownika" name="username" value={this.state.username} onChange={this.handleChange} />
                 <Input type="password" placeholder="Hasło" name="password" value={this.state.password} onChange={this.handleChange} />
                 <Input type="password" placeholder="Powtórz hasło" name="repeatPassword" value={this.state.repeatPassword} onChange={this.handleChange} />

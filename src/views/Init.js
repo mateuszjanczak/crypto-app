@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect } from 'react-router'
+import { Redirect } from 'react-router';
 import styled from "styled-components";
 import {routes} from "../routes";
 
@@ -12,7 +12,7 @@ class Init extends React.Component {
 
     componentDidMount() {
         this.checkConnection();
-        this.interval = setInterval(() => { this.checkConnection(); });
+        this.interval = setInterval(() => { this.checkConnection(); }, 5000);
     }
 
     componentWillUnmount() {
@@ -20,7 +20,7 @@ class Init extends React.Component {
     }
 
     checkConnection() {
-        fetch('http://localhost:3001/api/list')
+        fetch('http://localhost:3001/api/server-test')
         .then(() => {
             this.setState({
                 ...this.state,

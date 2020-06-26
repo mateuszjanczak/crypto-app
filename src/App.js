@@ -7,6 +7,7 @@ import {routes} from "./routes";
 import Dashboard from "./views/Dashboard";
 import Init from "./views/Init";
 import Login from "./views/Login";
+import ResetPassword from "./views/ResetPassword";
 
 const Wrapper = styled.div`
   min-height: calc(100vh - 5rem);
@@ -43,6 +44,7 @@ class App extends React.Component {
                     <Switch>
                         <Route path={routes.init} component={Init} />
                         <Route path={routes.login} component={Login} />
+                        <Route path={routes.forgetPassword} component={ResetPassword} />
                         <Route path={routes.homepage} component={Dashboard} />
                     </Switch>
                 </Wrapper>

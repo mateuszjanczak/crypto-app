@@ -62,6 +62,11 @@ class Settings extends React.Component {
                     passErr: e.message
                 });
             })
+        } else {
+            this.setState({
+                ...this.state,
+                passErr: 'Wpisane hasła nie są takie same'
+            });
         }
     };
 
@@ -80,6 +85,7 @@ class Settings extends React.Component {
         return (
             <Wrapper>
                 <Box>
+                    <Heading>Zmiana hasła</Heading>
                     {this.state.passErr && <p>{this.state.passErr}</p>}
                     <Input type="password" placeholder="Stare hasło" name="old" value={this.state.old} onChange={this.handleChange} />
                     <Input type="password" placeholder="Nowe hasło" name="new" value={this.state.new} onChange={this.handleChange} />
@@ -87,6 +93,7 @@ class Settings extends React.Component {
                     <Button onClick={this.handlePassword}>Zmień hasło</Button>
                 </Box>
                 <Box>
+                    <Heading>Zmiana emaila</Heading>
                     {this.state.emailErr && <p>{this.state.emailErr}</p>}
                     <Input type="password" placeholder="Hasło" name="pass" value={this.state.pass} onChange={this.handleChange} />
                     <Input placeholder="Nowy adres email" name="mail" value={this.state.mail} onChange={this.handleChange} />
@@ -134,6 +141,11 @@ const Button = styled.button`
   &:hover {
     background: #332940;
   }
+`;
+
+const Heading = styled.h2`
+  margin: 0 0 1.5rem;
+  text-align: center;
 `;
 
 export default Settings;

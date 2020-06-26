@@ -7,5 +7,6 @@ export const routes = {
     cryptoSingle: '/crypto/:id',
     converter: '/converter/',
     wallet: '/wallet/',
-    settings: '/settings/'
+    settings: '/settings/',
+    forgetPassword: '/forgetPassword/'
 };

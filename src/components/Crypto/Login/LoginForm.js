@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import {routes} from "../../../routes";
 import AuthenticationService from "../../../service/AuthenticationService";
-import { withRouter} from 'react-router-dom';
+import {NavLink, withRouter} from 'react-router-dom';
 
 class LoginForm extends React.Component {
 
@@ -56,6 +56,7 @@ class LoginForm extends React.Component {
                 {this.state.hasLoginFailed && <div>{this.state.error}</div>}
                 <Input placeholder="Nazwa użytkownika" name="username" value={this.state.username} onChange={this.handleChange} />
                 <Input type="password" placeholder="Hasło" name="password" value={this.state.password} onChange={this.handleChange} />
+                <Link as={NavLink} to={routes.forgetPassword}>Zapomniałeś hasła?</Link>
                 <Button onClick={this.loginClicked}>Zaloguj</Button>
                 <Button onClick={this.toHomepage}>Kontynuuj jako gość</Button>
             </Wrapper>
@@ -90,6 +91,14 @@ const Button = styled.button`
   &:hover {
     background: #332940;
   }
+`;
+
+const Link = styled.a`
+  margin-top: -2rem;
+  text-decoration: none;
+  text-align: right;
+  color: white;
+  font-size: 1.5rem;
 `;
 
 export default withRouter(LoginForm);
