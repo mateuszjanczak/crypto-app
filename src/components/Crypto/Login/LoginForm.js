@@ -46,7 +46,7 @@ class LoginForm extends React.Component {
     };
 
     toHomepage = () => {
-        this.props.history.push(routes.homepage)
+        this.props.history.push(routes.cryptoList)
     };
 
     render() {

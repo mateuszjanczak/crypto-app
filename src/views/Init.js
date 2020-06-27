@@ -45,7 +45,7 @@ class Init extends React.Component {
     guest = () => {
         this.setState({
             ...this.state,
-            referrer: routes.homepage
+            referrer: routes.cryptoList
         });
     };
 
