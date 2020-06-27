@@ -10,7 +10,7 @@ class LineChart extends React.Component {
     }
 
     componentDidUpdate() {
-        this.myChart.data.labels = [...this.props.data.map(item => dayjs(item.timestamp).format('YY-MM-DD HH:mm:ss'))];
+        this.myChart.data.labels = [...this.props.data.map(item => dayjs(item.timestamp).format('DD-MM-YY HH:mm:ss'))];
         this.myChart.data.datasets[0].data = [...this.props.data.map(item => item.price)];
         this.myChart.update();
     }

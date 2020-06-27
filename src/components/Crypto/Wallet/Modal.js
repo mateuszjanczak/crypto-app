@@ -6,17 +6,20 @@ import {faTimes} from "@fortawesome/free-solid-svg-icons";
 
 class Modal extends React.Component {
 
-    state = {
-        listCrypto: [],
-        listNormal: ['USD', 'EUR', 'PLN', 'GBP'],
-        loaded: false,
-        name: '',
-        coinId: '',
-        amount: '',
-        date: '',
-        price: '',
-        currency: 'USD'
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            listCrypto: [],
+            listNormal: ['USD', 'EUR', 'PLN', 'GBP'],
+            loaded: false,
+            name: '',
+            coinId: '',
+            amount: '',
+            date: '',
+            price: '',
+            currency: 'USD'
+        };
+    }
 
     componentDidMount() {
         const { typeFn } = this.props;
@@ -33,19 +36,19 @@ class Modal extends React.Component {
                 'auth-token': AuthenticationService.getHeaders()
             }
         })
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    this.setState({
-                        ...this.state,
-                        listCrypto: result,
-                        loaded: true
-                    });
-                },
-                (error) => {
-                    console.log(error)
-                }
-            )
+        .then(res => res.json())
+        .then(
+            (result) => {
+                this.setState({
+                    ...this.state,
+                    listCrypto: result,
+                    loaded: true
+                });
+            },
+            (error) => {
+                console.log(error)
+            }
+        )
     }
 
     afterHandle = () => {
@@ -56,6 +59,11 @@ class Modal extends React.Component {
     handleClickAdd = () => {
         const { addItemFn } = this.props;
         const { name, amount, date, price, currency } = this.state;
+
+        if(!(name && amount && date && price && currency)){
+            return 0;
+        }
+
         const coin = this.state.listCrypto.find((item) => item.name === name);
         if(coin) {
             const coinId = this.state.listCrypto.find((item) => item.name === name).id;
@@ -73,6 +81,11 @@ class Modal extends React.Component {
     handleClickEdit = () => {
         const { editItemFn } = this.props;
         const { name, amount, date, price, currency } = this.state;
+
+        if(!(name && amount && date && price && currency)){
+            return 0;
+        }
+
         const coin = this.state.listCrypto.find((item) => item.name === name);
         if(coin) {
             const coinId = this.state.listCrypto.find((item) => item.name === name).id;

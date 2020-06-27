@@ -5,14 +5,17 @@ import swapSVG from "../assets/swap.svg";
 
 class Converter extends React.Component {
 
-    state = {
-        items: '',
-        loaded: false,
-        from: '',
-        to: '',
-        fromAmount: '',
-        toAmount: ''
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            items: '',
+            loaded: false,
+            from: '',
+            to: '',
+            fromAmount: '',
+            toAmount: ''
+        };
+    }
 
     renderElement(item) {
         return (
@@ -26,20 +29,20 @@ class Converter extends React.Component {
                 'auth-token': AuthenticationService.getHeaders()
             }
         })
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    this.setState({
-                        ...this.state,
-                        items: result,
-                        loaded: true
-                    });
-                    console.log(this.state.items)
-                },
-                (error) => {
-                    console.log(error)
-                }
-            )
+        .then(res => res.json())
+        .then(
+            (result) => {
+                this.setState({
+                    ...this.state,
+                    items: result,
+                    loaded: true
+                });
+                console.log(this.state.items)
+            },
+            (error) => {
+                console.log(error)
+            }
+        )
     }
 
     handleChange = (event) => {
@@ -70,7 +73,6 @@ class Converter extends React.Component {
 
     convert = () => {
         const { from, to, fromAmount } = this.state;
-        console.log(from + to + fromAmount);
         const fromObj = this.state.items.find((item) => item.name === from);
         const toObj = this.state.items.find((item) => item.name === to);
         if(fromObj && toObj && fromAmount !== ''){
@@ -86,26 +88,25 @@ class Converter extends React.Component {
                     amount: fromAmount
                 }),
             })
-                .then((response) => {
-                    if(response.ok) {
-                        return response.json()
-                    }
-                    return response.text().then(text => {throw new Error(text)})
+            .then((response) => {
+                if(response.ok) {
+                    return response.json()
+                }
+                return response.text().then(text => {throw new Error(text)})
+            })
+            .then((result) => {
+                this.setState({
+                    ...this.state,
+                    toAmount: result.value
                 })
-                .then((result) => {
-                    this.setState({
-                        ...this.state,
-                        toAmount: result.value
-                    })
-                })
-                .catch((e) => {
-                    this.setState({
-                        ...this.state,
-                        hasRegisterFailed: true,
-                        error: e.message
-                    });
-                    console.log(e)
-                })
+            })
+            .catch((e) => {
+                this.setState({
+                    ...this.state,
+                    hasRegisterFailed: true,
+                    error: e.message
+                });
+            })
         }
     };
 
@@ -147,8 +148,7 @@ const Wrapper = styled.div`
 `;
 
 const Heading = styled.h1`
-  margin: 0;
-  margin-bottom: 2rem;
+  margin: 0 0 2rem;
 `;
 
 const Box = styled.div`

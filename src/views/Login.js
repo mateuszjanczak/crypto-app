@@ -6,10 +6,13 @@ import AuthenticationService from "../service/AuthenticationService";
 
 class Authentication extends React.Component {
 
-    state = {
-      loginEnabled: true,
-      registerEnabled: false
-    };
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            loginEnabled: true,
+            registerEnabled: false
+        };
+    }
 
     componentDidMount() {
         AuthenticationService.logout();

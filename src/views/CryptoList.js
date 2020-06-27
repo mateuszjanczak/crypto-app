@@ -72,5 +72,4 @@ const Search = styled.input`
   color: white;
 `;
 
-
 export default CryptoList;

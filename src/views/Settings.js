@@ -4,80 +4,111 @@ import AuthenticationService from "../service/AuthenticationService";
 
 class Settings extends React.Component {
 
-    state = {
-        old: '',
-        new: '',
-        repeat_new: '',
-        pass: '',
-        mail: '',
-        passErr: '',
-        emailErr: ''
-    };
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            old: '',
+            new: '',
+            repeat_new: '',
+            pass: '',
+            mail: '',
+            passErr: '',
+            emailErr: ''
+        };
+    }
 
     handleMail = () => {
         const { pass: password, mail: newEmail } = this.state;
-        console.log(this.state);
-        fetch('http://localhost:3001/api/user/settings', {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'auth-token': AuthenticationService.getHeaders()
-            },
-            body: JSON.stringify({
-                password,
-                newEmail
-            }),
-        })
-        .then(res => {
-            return res.text().then(text => {throw new Error(text)})
-        })
-        .catch((e) => {
-            this.setState({
-                ...this.state,
-                emailErr: e.message
+
+        this.clearErrors()
+            .then( () => {
+                if(!(password && newEmail)){
+                    this.setState({
+                        ...this.state,
+                        emailErr: "Uzupełnij wszystkie pola"
+                    });
+                    return 0
+                }
+
+                fetch('http://localhost:3001/api/user/settings', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'auth-token': AuthenticationService.getHeaders()
+                    },
+                    body: JSON.stringify({
+                        password,
+                        newEmail
+                    }),
+                })
+                    .then(res => {
+                        return res.text().then(text => {throw new Error(text)})
+                    })
+                    .catch((e) => {
+                        this.setState({
+                            ...this.state,
+                            emailErr: e.message
+                        });
+                    })
             });
-        })
     };
 
     handlePassword = () => {
         const { old: password, new: newPassword, repeat_new } = this.state;
-        if(newPassword === repeat_new){
-            fetch('http://localhost:3001/api/user/settings', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'auth-token': AuthenticationService.getHeaders()
-                },
-                body: JSON.stringify({
-                    password,
-                    newPassword
-                }),
-            })
-            .then(res => {
-                return res.text().then(text => {throw new Error(text)})
-            })
-            .catch((e) => {
+
+        this.clearErrors().then(() => {
+            if(!(password && newPassword)){
                 this.setState({
                     ...this.state,
-                    passErr: e.message
+                    passErr: "Uzupełnij wszystkie pola"
                 });
-            })
-        } else {
-            this.setState({
-                ...this.state,
-                passErr: 'Wpisane hasła nie są takie same'
-            });
-        }
+                return 0
+            }
+
+            if(newPassword === repeat_new){
+                fetch('http://localhost:3001/api/user/settings', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'auth-token': AuthenticationService.getHeaders()
+                    },
+                    body: JSON.stringify({
+                        password,
+                        newPassword
+                    }),
+                })
+                    .then(res => {
+                        return res.text().then(text => {throw new Error(text)})
+                    })
+                    .catch((e) => {
+                        this.setState({
+                            ...this.state,
+                            passErr: e.message
+                        });
+                    })
+            } else {
+                this.setState({
+                    ...this.state,
+                    passErr: 'Wpisane hasła nie są takie same'
+                });
+            }
+        });
     };
 
     handleChange = (event) => {
-        this.setState(
-            {
-                [event.target.name]
-                    :event.target.value,
+        this.setState({
+            [event.target.name]
+                :event.target.value
+        }, this.clearErrors);
+    };
+
+    clearErrors = () => {
+        return new Promise((resolve) =>
+            this.setState({
+                ...this.state,
                 passErr: '',
                 emailErr: ''
-            }
+            }, resolve)
         )
     };
 

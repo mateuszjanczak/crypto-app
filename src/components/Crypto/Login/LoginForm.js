@@ -6,12 +6,15 @@ import {NavLink, withRouter} from 'react-router-dom';
 
 class LoginForm extends React.Component {
 
-    state = {
-        username: '',
-        password: '',
-        hasLoginFailed: false,
-        error: ''
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: '',
+            password: '',
+            hasLoginFailed: false,
+            error: ''
+        };
+    }
 
     handleChange = (event) => {
         this.setState(
@@ -24,6 +27,16 @@ class LoginForm extends React.Component {
 
     loginClicked = () => {
         const { username, password } = this.state;
+
+        if(!(username && password)){
+            this.setState({
+                ...this.state,
+                hasLoginFailed: true,
+                error: "Uzupełnij wszystkie pola"
+            });
+            return 0
+        }
+
         AuthenticationService
             .executeJwtAuthenticationService(username, password)
             .then(res => {
@@ -50,7 +63,6 @@ class LoginForm extends React.Component {
     };
 
     render() {
-
         return (
             <Wrapper>
                 {this.state.hasLoginFailed && <div>{this.state.error}</div>}

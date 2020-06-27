@@ -6,14 +6,17 @@ import AuthenticationService from "../../../service/AuthenticationService";
 
 class NotificationsForm extends React.Component {
 
-    state = {
-        type: 'percent',
-        valuePrice: '',
-        valuePercent: '',
-        id: '',
-        currentPrice: '',
-        percent: ''
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            type: 'percent',
+            valuePrice: '',
+            valuePercent: '',
+            id: '',
+            currentPrice: '',
+            percent: ''
+        };
+    }
 
     componentDidMount() {
         const { item, id } = this.props;

@@ -6,14 +6,17 @@ import {routes} from "../../../routes";
 
 class RegisterForm extends React.Component {
 
-    state = {
-        email: '',
-        username: '',
-        password: '',
-        repeatPassword: '',
-        hasRegisterFailed: '',
-        error: ''
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            email: '',
+            username: '',
+            password: '',
+            repeatPassword: '',
+            hasRegisterFailed: '',
+            error: ''
+        };
+    }
 
     handleChange = (event) => {
         this.setState(
@@ -27,11 +30,29 @@ class RegisterForm extends React.Component {
     registerClicked = () => {
         const { email, username, password, repeatPassword } = this.state;
 
+        if(!(email && username && password && repeatPassword)){
+            this.setState({
+                ...this.state,
+                hasRegisterFailed: true,
+                error: "Uzupełnij wszystkie pola"
+            });
+            return 0
+        }
+
         if(password !== repeatPassword){
             this.setState({
                 ...this.state,
                 hasRegisterFailed: true,
                 error: "Hasła do siebie nie pasują"
+            });
+            return 0
+        }
+
+        if(password.length < 8){
+            this.setState({
+                ...this.state,
+                hasRegisterFailed: true,
+                error: "Hasło jest zbyt trywialne"
             });
             return 0
         }
@@ -47,20 +68,19 @@ class RegisterForm extends React.Component {
                 password
             }),
         })
-            .then((response) => {
-                if(response.ok) {
-                    return this.authenticate(username, password);
-                }
-                return response.text().then(text => {throw new Error(text)})
-            })
-            .catch((e) => {
-                this.setState({
-                    ...this.state,
-                    hasRegisterFailed: true,
-                    error: e.message
-                });
-                console.log(e)
-            })
+        .then((response) => {
+            if(response.ok) {
+                return this.authenticate(username, password);
+            }
+            return response.text().then(text => {throw new Error(text)})
+        })
+        .catch((e) => {
+            this.setState({
+                ...this.state,
+                hasRegisterFailed: true,
+                error: e.message
+            });
+        })
     };
 
     authenticate = (username, password) => {
@@ -83,7 +103,6 @@ class RegisterForm extends React.Component {
     };
 
     render() {
-
         return (
             <Wrapper>
                 {this.state.hasRegisterFailed && <div>{this.state.error}</div>}

@@ -5,10 +5,13 @@ import {routes} from "../routes";
 
 class Init extends React.Component {
 
-    state = {
-        referrer: null,
-        online: false
-    };
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            referrer: null,
+            online: false
+        };
+    }
 
     componentDidMount() {
         this.checkConnection();

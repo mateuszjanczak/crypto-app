@@ -8,11 +8,14 @@ import {routes} from "../routes";
 
 class ResetPassword extends React.Component {
 
-    state = {
-        email: '',
-        error: '',
-        referrer: ''
-    };
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            email: '',
+            error: '',
+            referrer: ''
+        };
+    }
 
     handleChange = (event) => {
         this.setState(

@@ -29,19 +29,18 @@ class Wallet extends React.Component {
                 'auth-token': AuthenticationService.getHeaders()
             }
         })
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    this.setState({
-                        ...this.state,
-                        items: result
-                    });
-                    console.log(this.state.items)
-                },
-                (error) => {
-                    console.log(error)
-                }
-            )
+        .then(res => res.json())
+        .then(
+            (result) => {
+                this.setState({
+                    ...this.state,
+                    items: result
+                });
+            },
+            (error) => {
+                console.log(error)
+            }
+        )
     };
 
     toggleModal = () => {

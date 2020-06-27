@@ -18,7 +18,6 @@ class AuthenticationService {
         sessionStorage.setItem('jwtToken', token);
     }
 
-
     getHeaders() {
         return sessionStorage.getItem('jwtToken')
     }

@@ -9,16 +9,15 @@ import Init from "./views/Init";
 import Login from "./views/Login";
 import ResetPassword from "./views/ResetPassword";
 
-const Wrapper = styled.div`
-  min-height: calc(100vh - 5rem);
-`;
-
 class App extends React.Component {
 
-    state = {
-        toDashboard: false,
-        currentUser: null
-    };
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            toDashboard: false,
+            currentUser: null
+        };
+    }
 
     toDashboard = () => {
         this.setState({
@@ -27,18 +26,15 @@ class App extends React.Component {
         })
     };
 
+    componentDidMount() {
+        this.toDashboard();
+    }
+
     render() {
-        if (!this.state.toDashboard) {
-            this.toDashboard();
-            return (
-                <BrowserRouter>
-                    <Redirect to={routes.init}/>
-                </BrowserRouter>
-            );
-        }
 
         return (
             <BrowserRouter>
+                {this.state.toDashboard && <Redirect to={routes.init} />}
                 <GlobalStyle/>
                 <Wrapper>
                     <Switch>
@@ -52,5 +48,9 @@ class App extends React.Component {
         );
     }
 }
+
+const Wrapper = styled.div`
+  min-height: calc(100vh - 5rem);
+`;
 
 export default App;
