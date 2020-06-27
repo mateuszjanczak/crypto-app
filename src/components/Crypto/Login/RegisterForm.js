@@ -3,6 +3,7 @@ import styled from "styled-components";
 import AuthenticationService from "../../../service/AuthenticationService";
 import { withRouter } from 'react-router-dom';
 import {routes} from "../../../routes";
+import ApiService from "../../../service/ApiService";
 
 class RegisterForm extends React.Component {
 
@@ -57,7 +58,7 @@ class RegisterForm extends React.Component {
             return 0
         }
 
-        fetch('http://localhost:3001/api/user/register', {
+        fetch(`${ApiService.api}/api/user/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

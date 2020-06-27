@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import AuthenticationService from "../service/AuthenticationService";
+import ApiService from "../service/ApiService";
 
 class Settings extends React.Component {
 
@@ -30,7 +31,7 @@ class Settings extends React.Component {
                     return 0
                 }
 
-                fetch('http://localhost:3001/api/user/settings', {
+                fetch(`${ApiService.api}/api/user/settings`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
@@ -66,7 +67,7 @@ class Settings extends React.Component {
             }
 
             if(newPassword === repeat_new){
-                fetch('http://localhost:3001/api/user/settings', {
+                fetch(`${ApiService.api}/api/user/settings`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',

@@ -5,6 +5,7 @@ import AuthenticationService from "../service/AuthenticationService";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBell, faEdit} from "@fortawesome/free-solid-svg-icons";
 import NotificationsForm from "../components/Crypto/Wallet/NotificationsForm";
+import ApiService from "../service/ApiService";
 
 class Wallet extends React.Component {
 
@@ -24,7 +25,7 @@ class Wallet extends React.Component {
     }
 
     fetchItems = () => {
-        fetch("http://localhost:3001/api/purchases", {
+        fetch(`${ApiService.api}/api/purchases`, {
             headers: {
                 'auth-token': AuthenticationService.getHeaders()
             }
@@ -88,7 +89,7 @@ class Wallet extends React.Component {
     };
 
     addItem = (item) => {
-        fetch('http://localhost:3001/api/purchases', {
+        fetch(`${ApiService.api}/api/purchases`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -102,7 +103,7 @@ class Wallet extends React.Component {
 
     editItem = (item) => {
         const { _id } = this.state;
-        fetch(`http://localhost:3001/api/purchases/${_id}`, {
+        fetch(`${ApiService.api}/api/purchases/${_id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -116,7 +117,7 @@ class Wallet extends React.Component {
 
     deleteItem = () => {
         const { _id } = this.state;
-        fetch(`http://localhost:3001/api/purchases/${_id}`, {
+        fetch(`${ApiService.api}/api/purchases/${_id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

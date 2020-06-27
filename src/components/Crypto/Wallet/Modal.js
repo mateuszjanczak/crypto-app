@@ -3,6 +3,7 @@ import styled from "styled-components";
 import AuthenticationService from "../../../service/AuthenticationService";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTimes} from "@fortawesome/free-solid-svg-icons";
+import ApiService from "../../../service/ApiService";
 
 class Modal extends React.Component {
 
@@ -31,7 +32,7 @@ class Modal extends React.Component {
             });
         }
 
-        fetch("http://localhost:3001/api/list", {
+        fetch(`${ApiService.api}/api/list`, {
             headers: {
                 'auth-token': AuthenticationService.getHeaders()
             }

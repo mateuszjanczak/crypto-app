@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import AuthenticationService from "../service/AuthenticationService";
 import swapSVG from "../assets/swap.svg";
+import ApiService from "../service/ApiService";
 
 class Converter extends React.Component {
 
@@ -24,7 +25,7 @@ class Converter extends React.Component {
     };
 
     componentDidMount() {
-        fetch("http://localhost:3001/api/list?all", {
+        fetch(`${ApiService.api}/api/list?all`, {
             headers: {
                 'auth-token': AuthenticationService.getHeaders()
             }
@@ -76,7 +77,7 @@ class Converter extends React.Component {
         const fromObj = this.state.items.find((item) => item.name === from);
         const toObj = this.state.items.find((item) => item.name === to);
         if(fromObj && toObj && fromAmount !== ''){
-            fetch('http://localhost:3001/api/converter', {
+            fetch(`${ApiService.api}/api/converter`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

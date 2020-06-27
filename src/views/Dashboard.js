@@ -11,6 +11,7 @@ import Wallet from "./Wallet";
 import Settings from "./Settings";
 import AuthenticationService from "../service/AuthenticationService";
 import icon from "../assets/icon.ico";
+import ApiService from "../service/ApiService";
 
 class Dashboard extends React.Component {
 
@@ -24,7 +25,7 @@ class Dashboard extends React.Component {
     componentDidMount() {
         const headers = AuthenticationService.getHeaders();
         if(headers){
-            const SSE = new EventSource(`http://localhost:3001/api/notifications/SSE?token=${headers}`);
+            const SSE = new EventSource(`${ApiService.api}/api/notifications/SSE?token=${headers}`);
             this.setState({
                 SSE
             });

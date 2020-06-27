@@ -1,7 +1,9 @@
+import ApiService from "./ApiService";
+
 class AuthenticationService {
 
     executeJwtAuthenticationService(username, password) {
-        return fetch('http://localhost:3001/api/user/login', {
+        return fetch(`${ApiService.api}/api/user/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -10,7 +12,7 @@ class AuthenticationService {
                 username,
                 password
             }),
-        })
+        });
     }
 
     registerSuccessfulLoginForJwt(username, token) {
@@ -19,7 +21,7 @@ class AuthenticationService {
     }
 
     getHeaders() {
-        return sessionStorage.getItem('jwtToken')
+        return sessionStorage.getItem('jwtToken');
     }
 
     isLogged() {

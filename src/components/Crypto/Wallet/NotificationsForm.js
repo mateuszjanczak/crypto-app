@@ -3,6 +3,7 @@ import styled from "styled-components";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTimes } from "@fortawesome/free-solid-svg-icons";
 import AuthenticationService from "../../../service/AuthenticationService";
+import ApiService from "../../../service/ApiService";
 
 class NotificationsForm extends React.Component {
 
@@ -47,7 +48,7 @@ class NotificationsForm extends React.Component {
             value = valuePercent;
         }
 
-        fetch('http://localhost:3001/api/notifications/add', {
+        fetch(`${ApiService.api}/api/notifications/add`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

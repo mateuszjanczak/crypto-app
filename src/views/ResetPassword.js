@@ -5,6 +5,7 @@ import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
 import AuthenticationService from "../service/AuthenticationService";
 import { Redirect } from 'react-router';
 import {routes} from "../routes";
+import ApiService from "../service/ApiService";
 
 class ResetPassword extends React.Component {
 
@@ -37,7 +38,7 @@ class ResetPassword extends React.Component {
     handleForget = () => {
         const { email } = this.state;
 
-        fetch('http://localhost:3001/api/user/forgotpassword', {
+        fetch(`${ApiService.api}/api/user/forgotpassword`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

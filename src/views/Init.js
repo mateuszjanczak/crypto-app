@@ -2,6 +2,7 @@ import React from "react";
 import { Redirect } from 'react-router';
 import styled from "styled-components";
 import {routes} from "../routes";
+import ApiService from "../service/ApiService";
 
 class Init extends React.Component {
 
@@ -23,7 +24,7 @@ class Init extends React.Component {
     }
 
     checkConnection() {
-        fetch('http://localhost:3001/api/server-test')
+        fetch(`${ApiService.api}/api/server-test`)
         .then(() => {
             this.setState({
                 ...this.state,
