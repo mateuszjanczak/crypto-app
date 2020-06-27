@@ -56,29 +56,35 @@ class Modal extends React.Component {
     handleClickAdd = () => {
         const { addItemFn } = this.props;
         const { name, amount, date, price, currency } = this.state;
-        const coinId = this.state.listCrypto.find((item) => item.name === name).id;
-        addItemFn({
-            coinId,
-            amount,
-            date,
-            price,
-            currency
-        });
-        this.afterHandle();
+        const coin = this.state.listCrypto.find((item) => item.name === name);
+        if(coin) {
+            const coinId = this.state.listCrypto.find((item) => item.name === name).id;
+            addItemFn({
+                coinId,
+                amount,
+                date,
+                price,
+                currency
+            });
+            this.afterHandle();
+        }
     };
 
     handleClickEdit = () => {
         const { editItemFn } = this.props;
         const { name, amount, date, price, currency } = this.state;
-        const coinId = this.state.listCrypto.find((item) => item.name === name).id;
-        editItemFn({
-            coinId,
-            amount,
-            date,
-            price,
-            currency
-        });
-        this.afterHandle();
+        const coin = this.state.listCrypto.find((item) => item.name === name);
+        if(coin) {
+            const coinId = this.state.listCrypto.find((item) => item.name === name).id;
+            editItemFn({
+                coinId,
+                amount,
+                date,
+                price,
+                currency
+            });
+            this.afterHandle();
+        }
     };
 
     handleClickDelete = () => {
