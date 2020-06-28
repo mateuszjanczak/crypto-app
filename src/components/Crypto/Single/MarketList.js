@@ -6,7 +6,7 @@ class MarketList extends React.Component {
 
     renderElement(item) {
         return (
-            <Element key={item.rank} item={item}/>
+            <Element key={item.exchange_id} item={item}/>
         );
     };
 

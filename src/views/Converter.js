@@ -38,7 +38,6 @@ class Converter extends React.Component {
                     items: result,
                     loaded: true
                 });
-                console.log(this.state.items)
             },
             (error) => {
                 console.log(error)

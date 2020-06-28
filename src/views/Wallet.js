@@ -137,7 +137,7 @@ class Wallet extends React.Component {
     renderElement = (item) => {
         const {_id, amount, price, date, currency, name, percent, profit} = item;
         return (
-            <Box>
+            <Box key={_id}>
                 <Paragraph>{name}</Paragraph>
                 <Paragraph>{amount}</Paragraph>
                 <Paragraph>{price + ' ' + currency}</Paragraph>
