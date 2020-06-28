@@ -13,4 +13,4 @@ class ApiService {
     }
 }
 
-export default new ApiService(`http://localhost:3001`);
+export default new ApiService(`http://localhost:8080`);

@@ -127,8 +127,8 @@ class Settings extends React.Component {
                 <Box>
                     <Heading>Zmiana emaila</Heading>
                     {this.state.emailErr && <p>{this.state.emailErr}</p>}
-                    <Input type="password" placeholder="Hasło" name="pass" value={this.state.pass} onChange={this.handleChange} />
                     <Input placeholder="Nowy adres email" name="mail" value={this.state.mail} onChange={this.handleChange} />
+                    <Input type="password" placeholder="Hasło" name="pass" value={this.state.pass} onChange={this.handleChange} />
                     <Button onClick={this.handleMail}>Zmień email</Button>
                 </Box>
             </Wrapper>
