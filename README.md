@@ -7,8 +7,9 @@ Node.js oraz npm można pobrać z [nodejs.org](https://nodejs.org)<br />
 Uruchomiony serwer (back-end) z [bitbucket.org](https://bitbucket.org/Mateusze/crypto-service/src/master/)
 
 ## Demo
-https://mj-cryptoapp.herokuapp.com/ (poczekaj, aż heroku wstanie)
 Aplikacja została pisana pod Electrona, więc niektóre funkcje mogą nie działać poprawnie w wersji internetowej.
+
+https://mj-cryptoapp.herokuapp.com/ (poczekaj, aż heroku wstanie)
 
 ## Podgląd
 ![PREVIEW](./docs/preview.gif)
