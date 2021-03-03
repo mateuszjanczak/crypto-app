@@ -8,6 +8,7 @@ Uruchomiony serwer (back-end) z [bitbucket.org](https://bitbucket.org/Mateusze/c
 
 ## Demo
 https://mj-cryptoapp.herokuapp.com/ (poczekaj, aż heroku wstanie)
+Aplikacja została pisana pod Electrona, więc niektóre funkcje mogą nie działać poprawnie w wersji internetowej.
 
 ## Podgląd
 ![PREVIEW](./docs/preview.gif)
