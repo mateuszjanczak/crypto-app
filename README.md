@@ -6,6 +6,9 @@ Aplikacja powstała we współpracy z moim serdecznym kolegą Mateuszem jako pro
 Node.js oraz npm można pobrać z [nodejs.org](https://nodejs.org)<br />
 Uruchomiony serwer (back-end) z [bitbucket.org](https://bitbucket.org/Mateusze/crypto-service/src/master/)
 
+## Demo
+https://mj-cryptoapp.herokuapp.com/ (poczekaj, aż heroku wstanie)
+
 ## Podgląd
 ![PREVIEW](./docs/preview.gif)
 
