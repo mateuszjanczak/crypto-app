@@ -58,7 +58,7 @@ class Init extends React.Component {
             <Wrapper>
                 <Box>
                     <h1>Aplikacja do śledzenia kryptowalut</h1>
-                    {!this.state.online && <p>Serwer nie jest uruchomiony</p>}
+                    {!this.state.online && <p>Trwa łączenie z serwerem - proszę czekać!</p>}
                     {this.state.online && <Switches>
                         <Button onClick={this.user}>Użytkownik</Button>
                         <Button onClick={this.guest}>Gość</Button>

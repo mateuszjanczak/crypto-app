@@ -30,18 +30,18 @@ class Wallet extends React.Component {
                 'auth-token': AuthenticationService.getHeaders()
             }
         })
-        .then(res => res.json())
-        .then(
-            (result) => {
-                this.setState({
-                    ...this.state,
-                    items: result
-                });
-            },
-            (error) => {
-                console.log(error)
-            }
-        )
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    this.setState({
+                        ...this.state,
+                        items: result
+                    });
+                },
+                (error) => {
+                    console.log(error)
+                }
+            )
     };
 
     toggleModal = () => {
@@ -98,11 +98,13 @@ class Wallet extends React.Component {
             body: JSON.stringify({
                 ...item
             }),
-        }).then(() => { this.fetchItems() })
+        }).then(() => {
+            this.fetchItems()
+        })
     };
 
     editItem = (item) => {
-        const { _id } = this.state;
+        const {_id} = this.state;
         fetch(`${ApiService.api}/api/purchases/${_id}`, {
             method: 'PUT',
             headers: {
@@ -112,18 +114,22 @@ class Wallet extends React.Component {
             body: JSON.stringify({
                 ...item
             }),
-        }).then(() => { this.fetchItems() })
+        }).then(() => {
+            this.fetchItems()
+        })
     };
 
     deleteItem = () => {
-        const { _id } = this.state;
+        const {_id} = this.state;
         fetch(`${ApiService.api}/api/purchases/${_id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
                 'auth-token': AuthenticationService.getHeaders()
             }
-        }).then(() => { this.fetchItems() })
+        }).then(() => {
+            this.fetchItems()
+        })
     };
 
     renderPercent = (item) => {
@@ -144,6 +150,7 @@ class Wallet extends React.Component {
                 <Paragraph>{date.slice(0, 10).split('-').reverse().join(' / ')}</Paragraph>
                 {this.renderPercent(percent)}
                 <Paragraph>{profit.toFixed(2) + ' ' + currency}</Paragraph>
+                <Paragraph>{(price * amount + profit).toFixed(2) + ' ' + currency}</Paragraph>
                 <Operation>
                     <EditButton onClick={() => this.toggleEdit(_id)}>
                         <FontAwesomeIcon icon={faEdit}/>
@@ -156,24 +163,45 @@ class Wallet extends React.Component {
         );
     };
 
+    getStatistics = () => {
+        const currencies = ['PLN', 'USD', 'EUR', 'GBP'];
+        return currencies.map(currency => {
+            const purchasePrice = this.state.items.filter((item) => item.currency === currency).map(({amount, price}) => amount * price).reduce(function (acc, score) {
+                return acc + score;
+            }, 0);
+
+            const currentPrice = purchasePrice + this.state.items.filter((item) => item.currency === currency).map(({profit}) => profit).reduce(function (acc, score) {
+                return acc + score;
+            }, 0);
+
+            const earnings = currentPrice - purchasePrice;
+
+            return {
+                purchasePrice,
+                currentPrice,
+                earnings,
+                currency
+            }
+        })
+    }
+
     render() {
 
         const Form = () => {
             return (
                 <>
-                {this.state.type === 'add' && <Modal toggleModalFn={this.toggleModal} typeFn={'add'} addItemFn={this.addItem}/>}
-                {this.state.type === 'edit' && <Modal toggleModalFn={this.toggleModal} _id={this.state._id} item={this.state.item} typeFn={'edit'} editItemFn={this.editItem} deleteItemFn={this.deleteItem} />}
+                    {this.state.type === 'add' && <Modal toggleModalFn={this.toggleModal} typeFn={'add'} addItemFn={this.addItem}/>}
+                    {this.state.type === 'edit' && <Modal toggleModalFn={this.toggleModal} _id={this.state._id} item={this.state.item} typeFn={'edit'} editItemFn={this.editItem} deleteItemFn={this.deleteItem}/>}
                 </>
             )
         };
 
         return (
             <Wrapper>
-                {this.state.isOpenModal && <Form />}
-                {this.state.isOpenNotificationsForm && <NotificationsForm toggleNotificationsFormFn={this.toggleNotificationsForm} id={this.state._id} item={this.state.item} />}
-                <Button onClick={this.toggleAdd}>
-                    +
-                </Button>
+                {this.state.isOpenModal && <Form/>}
+                {this.state.isOpenNotificationsForm &&
+                <NotificationsForm toggleNotificationsFormFn={this.toggleNotificationsForm} id={this.state._id} item={this.state.item}/>}
+                <Button onClick={this.toggleAdd}>+</Button>
                 <Container>
                     <Box>
                         <Heading>Kryptowaluta</Heading>
@@ -182,9 +210,39 @@ class Wallet extends React.Component {
                         <Heading>Data</Heading>
                         <Heading>%</Heading>
                         <Heading>Profit</Heading>
+                        <Heading>Suma</Heading>
                     </Box>
                     {this.state.items.length > 0 && <> {this.state.items.map(this.renderElement)} </>}
                     {this.state.items.length === 0 && <Warning>Lista jest pusta.</Warning>}
+                </Container>
+                <Container>
+                    {this.state.items.length > 0 &&
+                    <>
+                        <Header>Statystyki</Header>
+                        <Stats>
+                            <Stat>
+                                <Heading>Cena kupna</Heading>
+                            </Stat>
+                            <Stat>
+                                <Heading>Aktualna wartość</Heading>
+                            </Stat>
+                            <Stat>
+                                <Heading>Suma zysków</Heading>
+                            </Stat>
+                        </Stats>
+                    </>}
+                    {this.state.items.length > 0 &&
+                    this.getStatistics().map(({purchasePrice, currentPrice, earnings, currency}) => (
+                        <>
+                            {purchasePrice !== 0 &&
+                            <Stats>
+                                <Stat><Paragraph>{purchasePrice.toFixed(2) + " " + currency}</Paragraph></Stat>
+                                <Stat><Paragraph>{currentPrice.toFixed(2) + " " + currency}</Paragraph></Stat>
+                                <Stat><Paragraph>{earnings.toFixed(2) + " " + currency}</Paragraph></Stat>
+                            </Stats>}
+                        </>
+                    ))
+                    }
                 </Container>
             </Wrapper>
         )
@@ -221,6 +279,7 @@ const Button = styled.button`
   align-items: center;
   cursor: pointer;
   color: white;
+
   &:hover {
     background: #332940;
   }
@@ -243,10 +302,14 @@ const Paragraph = styled.p`
 
 const Box = styled.div`
   display: grid;
-  grid-template-columns: repeat(6, 1fr) 6rem;
+  grid-template-columns: repeat(7, 1fr) 6rem;
   padding: 1rem;
   margin-bottom: 0.75rem;
   background: #1F1B24;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
 `;
 
 const Percent = styled.p`
@@ -259,4 +322,19 @@ const Warning = styled.p`
   text-align: center;
 `;
 
+const Header = styled.h1`
+  text-align: center;
+`;
+
+const Stats = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-bottom: 0.75rem;
+  text-align: center;
+`;
+
+const Stat = styled.div`
+  background: #1F1B24;
+  padding: 1rem;
+`;
 export default Wallet;
