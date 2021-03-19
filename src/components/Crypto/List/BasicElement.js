@@ -25,7 +25,7 @@ class BasicElement extends React.Component {
                     <Name as={NavLink} to={routes.crypto + id}>
                         {name}
                     </Name>
-                    <Price>{price} USD</Price>
+                    <Price>{price.toString().substring(0, 8)} USD</Price>
                     <Times>
                         <Time>
                             <Interval>

@@ -17,27 +17,7 @@ class MarketList extends React.Component {
             <>
                 {items.length > 0 &&
                     <Wrapper>
-                        <List>
-                            <Box>
-                                <Name>
-                                    Giełda
-                                </Name>
-                                <Price>
-                                    Cena
-                                </Price>
-                            </Box>
-                            {items.length > 1 && <Box>
-                                <Name>
-                                    Giełda
-                                </Name>
-                                <Price>
-                                    Cena
-                                </Price>
-                            </Box>}
-                        </List>
-                        <List>
-                            {items.map(this.renderElement)}
-                        </List>
+                        {items.map(this.renderElement)}
                     </Wrapper>
                 }
             </>
@@ -46,29 +26,7 @@ class MarketList extends React.Component {
 }
 
 const Wrapper = styled.div`
-  background: #1F1B24;
-  padding: 2rem;
-`;
-
-const List = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 3rem;
-  background: #1F1B24;
-`;
-
-const Box = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-`;
-
-const Name = styled.h3`
-  margin-top: 0;
-`;
-
-const Price = styled.h3`
-  margin-top: 0;
-  text-align: right;
+  
 `;
 
 export default MarketList;
